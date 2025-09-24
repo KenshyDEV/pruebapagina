@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 document.addEventListener("DOMContentLoaded", async () => {
   const container = document.getElementById("posts");
 
-  // 👇 aquí deberías cargar dinámicamente todos los posts, por ahora probamos con uno
+  // 👇 pronto automatizamos la lista, por ahora manual
   const posts = ["/post/tu-papa.md"];
 
   for (const url of posts) {
@@ -151,7 +151,7 @@ document.addEventListener("DOMContentLoaded", async () => {
       const res = await fetch(url);
       const text = await res.text();
 
-      // Extraer frontmatter (entre --- ---)
+      // Extraer frontmatter
       const frontmatterRegex = /^---\n([\s\S]*?)\n---/;
       const match = text.match(frontmatterRegex);
 
@@ -176,8 +176,8 @@ document.addEventListener("DOMContentLoaded", async () => {
       article.innerHTML = `
         ${metadata.image ? `<img src="${metadata.image}" alt="${metadata.title}" class="featured-img">` : ""}
         <h2>${metadata.title || "Sin título"}</h2>
-        <p><small>${metadata.date || ""}</small></p>
-        <div>${marked.parse(content)}</div>
+        <p class="date"><small>${metadata.date || ""}</small></p>
+        <div class="content">${marked.parse(content)}</div>
       `;
 
       container.appendChild(article);
@@ -187,6 +187,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 });
+
+
 
 
 
