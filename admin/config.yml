@@ -1,14 +1,15 @@
 backend:
-  name: git-gateway
-  branch: main  # O la rama principal de tu repo (a veces 'master')
+  name: github
+  repo: KenshyDEV/pruebapagina   # ejemplo: kevinvalencia/jbautista
+  branch: main              # o master, según tu repo
 
-media_folder: "img/uploads"   # Aquí se guardan las imágenes
-public_folder: "/img/uploads" # Ruta pública para accederlas
+media_folder: "img/uploads"   # Carpeta en el repo donde se guardan imágenes
+public_folder: "/img/uploads" # Cómo se accede públicamente a esas imágenes
 
 collections:
   - name: "blog"
     label: "Blog"
-    folder: "posts"
+    folder: "post"
     create: true
     slug: "{{slug}}"
     fields:
