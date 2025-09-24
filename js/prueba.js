@@ -140,46 +140,50 @@ document.addEventListener("DOMContentLoaded", async () => {
 
 //codigo
 
-// === blog-loader.js ===
-// Cargar posts escritos en Markdown desde /post/
-
-// Lista de archivos manual (mejor después automatizamos)
-const posts = [
-  "/post/tu-papa.md",
-  "/post/segundo-post.md"
-];
-
-// Función para convertir Markdown sencillo a HTML
-function markdownToHtml(md) {
-  return md
-    .replace(/^# (.*$)/gim, "<h1>$1</h1>")
-    .replace(/^## (.*$)/gim, "<h2>$1</h2>")
-    .replace(/^### (.*$)/gim, "<h3>$1</h3>")
-    .replace(/\*\*(.*)\*\*/gim, "<b>$1</b>")
-    .replace(/\*(.*)\*/gim, "<i>$1</i>")
-    .replace(/\n$/gim, "<br>");
-}
-
-// Renderizar posts
-async function renderPosts() {
+document.addEventListener("DOMContentLoaded", async () => {
   const container = document.getElementById("posts");
 
-  for (const file of posts) {
+  // Aquí deberías listar dinámicamente, pero por ahora probamos con un post
+  const posts = ["/post/mi-primer-post.md"];
+
+  for (const url of posts) {
     try {
-      const res = await fetch(file);
+      const res = await fetch(url);
       const text = await res.text();
-      const html = markdownToHtml(text);
+
+      // Extraer frontmatter (entre --- ---)
+      const frontmatterRegex = /^---\n([\s\S]*?)\n---/;
+      const match = text.match(frontmatterRegex);
+
+      let metadata = {};
+      let content = text;
+
+      if (match) {
+        const yaml = match[1];
+        content = text.replace(frontmatterRegex, ""); // quitar frontmatter
+
+        yaml.split("\n").forEach(line => {
+          const [key, ...rest] = line.split(":");
+          if (key && rest) {
+            metadata[key.trim()] = rest.join(":").trim();
+          }
+        });
+      }
 
       const article = document.createElement("article");
       article.classList.add("post");
-      article.innerHTML = html;
-
+      article.innerHTML = `
+        <h2>${metadata.title || "Sin título"}</h2>
+        <p><small>${metadata.date || ""}</small></p>
+        <div>${marked.parse(content)}</div>
+      `;
       container.appendChild(article);
+
     } catch (err) {
-      console.error("Error cargando post:", file, err);
+      console.error("Error cargando post:", url, err);
     }
   }
-}
+});
 
-document.addEventListener("DOMContentLoaded", renderPosts);
+
 
