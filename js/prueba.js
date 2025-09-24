@@ -144,7 +144,7 @@ document.addEventListener("DOMContentLoaded", async () => {
   const container = document.getElementById("posts");
 
   // Aquí deberías listar dinámicamente, pero por ahora probamos con un post
-  const posts = ["/post/mi-primer-post.md"];
+  const posts = ["/post/tu-papa.md"];
 
   for (const url of posts) {
     try {
@@ -184,6 +184,7 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 });
+
 
 
 
