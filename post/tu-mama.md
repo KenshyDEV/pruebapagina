@@ -1,6 +1,6 @@
 ---
-title: tu mama
-date: 2025-09-24T01:52:00.000-05:00
-image: /img/uploads/pexels-damian-kaffenberger-2166283-3977580-1-.jpg
+title: tu hermana
+date: 2025-09-24T02:46:00.000-05:00
+image: /img/uploads/undraw_education_3vwh.png
 ---
-tu mama es hombre
+tu hermana perra
