@@ -143,15 +143,16 @@ document.addEventListener("DOMContentLoaded", async () => {
 document.addEventListener("DOMContentLoaded", async () => {
   const container = document.getElementById("posts");
 
-  // 👇 pronto automatizamos la lista, por ahora manual
-  const posts = ["/post/tu-papa.md"];
+  try {
+    // Leer el index.json con todos los posts
+    const res = await fetch("/post/index.json");
+    const posts = await res.json();
 
-  for (const url of posts) {
-    try {
-      const res = await fetch(url);
-      const text = await res.text();
+    for (const url of posts) {
+      const resPost = await fetch(url);
+      const text = await resPost.text();
 
-      // Extraer frontmatter
+      // Extraer frontmatter (--- ---)
       const frontmatterRegex = /^---\n([\s\S]*?)\n---/;
       const match = text.match(frontmatterRegex);
 
@@ -160,8 +161,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       if (match) {
         const yaml = match[1];
-        content = text.replace(frontmatterRegex, ""); // quitar frontmatter
-
+        content = text.replace(frontmatterRegex, "");
         yaml.split("\n").forEach(line => {
           const [key, ...rest] = line.split(":");
           if (key && rest) {
@@ -170,23 +170,24 @@ document.addEventListener("DOMContentLoaded", async () => {
         });
       }
 
+      // Crear la card del post
       const article = document.createElement("article");
       article.classList.add("post");
-
       article.innerHTML = `
-        ${metadata.image ? `<img src="${metadata.image}" alt="${metadata.title}" class="featured-img">` : ""}
+        ${metadata.image ? `<img src="${metadata.image}" alt="${metadata.title || "Post"}" class="featured-img">` : ""}
         <h2>${metadata.title || "Sin título"}</h2>
-        <p class="date"><small>${metadata.date || ""}</small></p>
-        <div class="content">${marked.parse(content)}</div>
+        <span class="date">${metadata.date || ""}</span>
+        <div class="post-body">${marked.parse(content)}</div>
       `;
-
       container.appendChild(article);
-
-    } catch (err) {
-      console.error("Error cargando post:", url, err);
     }
+  } catch (err) {
+    console.error("Error cargando posts:", err);
+    container.innerHTML = `<p>No se pudieron cargar los posts.</p>`;
   }
 });
+
+
 
 
 
