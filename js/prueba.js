@@ -90,4 +90,50 @@ document.addEventListener("DOMContentLoaded", function () {
       }
     });
   });
+
+});
+
+
+document.addEventListener("DOMContentLoaded", async () => {
+  const postsList = document.getElementById("posts-list");
+
+  if (!postsList) return;
+
+  try {
+    // obtenemos los archivos de /post/
+    const response = await fetch("/post/");
+    const text = await response.text();
+
+    // Parseamos listado (Netlify sirve un index de carpeta en modo dev, en producción a veces no)
+    // Lo más sencillo: mantener un posts.json generado o usar Eleventy/Hugo
+    // Aquí te muestro una demo mínima para Markdown + fetch:
+
+    const posts = [
+      "mi-primer-post.md" // ⚡ por ahora mete a mano los nombres de tus posts
+    ];
+
+    posts.forEach(async (file) => {
+      const res = await fetch(`/post/${file}`);
+      const md = await res.text();
+
+      // Extraer frontmatter YAML (ejemplo simple)
+      const titleMatch = md.match(/title:\s*(.+)/);
+      const dateMatch = md.match(/date:\s*(.+)/);
+
+      const title = titleMatch ? titleMatch[1] : "Sin título";
+      const date = dateMatch ? new Date(dateMatch[1]).toLocaleDateString() : "";
+
+      // Insertar en HTML
+      postsList.innerHTML += `
+        <article class="post">
+          <h2>${title}</h2>
+          <p><small>${date}</small></p>
+          <a href="/post/${file.replace(".md", ".html")}">Leer más</a>
+        </article>
+      `;
+    });
+
+  } catch (err) {
+    console.error("Error cargando posts", err);
+  }
 });
