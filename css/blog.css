@@ -4,7 +4,7 @@
   grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
   gap: 2rem;
   max-width: 1450px;
-  margin: 4rem auto 2rem auto; /* lo baja un poco del header */
+  margin: 10rem auto 5rem auto; /* lo baja un poco del header */
   padding: 0 1rem;
 }
 
@@ -53,3 +53,4 @@
   color: #444;
   font-size: 1rem;
 }
+
