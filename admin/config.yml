@@ -2,6 +2,8 @@ backend:
   name: github
   repo: KenshyDEV/pruebapagina   # ejemplo: kevinvalencia/jbautista
   branch: main              # o master, según tu repo
+  base_url: https://api.netlify.com
+  auth_endpoint: auth
 
 media_folder: "img/uploads"   # Carpeta en el repo donde se guardan imágenes
 public_folder: "/img/uploads" # Cómo se accede públicamente a esas imágenes
@@ -17,3 +19,4 @@ collections:
       - { label: "Fecha", name: "date", widget: "datetime" }
       - { label: "Imagen Destacada", name: "image", widget: "image" }
       - { label: "Contenido", name: "body", widget: "markdown" }
+
