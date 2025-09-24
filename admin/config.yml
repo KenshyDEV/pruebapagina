@@ -1,6 +1,6 @@
 backend:
   name: git-gateway
-  branch: main
+  branch: main   # o master, según tu repo
 
 media_folder: "img/uploads"
 public_folder: "/img/uploads"
@@ -16,4 +16,3 @@ collections:
       - { label: "Fecha", name: "date", widget: "datetime" }
       - { label: "Imagen Destacada", name: "image", widget: "image" }
       - { label: "Contenido", name: "body", widget: "markdown" }
-
