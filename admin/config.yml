@@ -1,14 +1,14 @@
 backend:
   name: git-gateway
-  branch: main  # O la rama principal de tu repo (a veces 'master')
+  branch: main
 
-media_folder: "img/uploads"   # Aquí se guardan las imágenes
-public_folder: "/img/uploads" # Ruta pública para accederlas
+media_folder: "img/uploads"
+public_folder: "/img/uploads"
 
 collections:
   - name: "blog"
     label: "Blog"
-    folder: "posts"
+    folder: "post"
     create: true
     slug: "{{slug}}"
     fields:
