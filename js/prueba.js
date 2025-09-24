@@ -143,7 +143,7 @@ document.addEventListener("DOMContentLoaded", async () => {
 document.addEventListener("DOMContentLoaded", async () => {
   const container = document.getElementById("posts");
 
-  // Aquí deberías listar dinámicamente, pero por ahora probamos con un post
+  // 👇 aquí deberías cargar dinámicamente todos los posts, por ahora probamos con uno
   const posts = ["/post/tu-papa.md"];
 
   for (const url of posts) {
@@ -172,11 +172,14 @@ document.addEventListener("DOMContentLoaded", async () => {
 
       const article = document.createElement("article");
       article.classList.add("post");
+
       article.innerHTML = `
+        ${metadata.image ? `<img src="${metadata.image}" alt="${metadata.title}" class="featured-img">` : ""}
         <h2>${metadata.title || "Sin título"}</h2>
         <p><small>${metadata.date || ""}</small></p>
         <div>${marked.parse(content)}</div>
       `;
+
       container.appendChild(article);
 
     } catch (err) {
@@ -184,6 +187,8 @@ document.addEventListener("DOMContentLoaded", async () => {
     }
   }
 });
+
+
 
 
 
