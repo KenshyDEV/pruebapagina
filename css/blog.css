@@ -5,7 +5,7 @@
   gap: 2rem;
   max-width: 1450px;
   margin: 0 auto 5rem auto; /* centrado + espacio abajo */
-  padding: 6rem 1rem 0 1rem; /* <-- le damos aire arriba */
+  padding: 10rem 1rem 0 1rem; /* <-- le damos aire arriba */
 }
 
 
@@ -95,6 +95,7 @@
   margin-bottom: 1rem;
   object-fit: cover;
 }
+
 
 
 
